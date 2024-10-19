@@ -13,6 +13,8 @@ import PrivateRoute from './components/PrivateRoute';
 import {
   AUTH_ERROR
 } from './actions/types';
+import StudentsPage from './pages/studentPage';
+import StudentList from './pages/StudentList';
 
 
 // Importing pages
@@ -62,11 +64,13 @@ console.log(token, isAuthenticated, role, loading)
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
+          
           <Route path="/documentation" element={<Documentation />} />
           
           {/* Place new routes over this */}
           <Route path="/app/*" element={<Layout />} />
-
+          <Route path="/addStudent" element={<StudentsPage />} />
+          <Route path="/students" element={<StudentList />} />
           <Route path="*" element={<Navigate to={token ? "/app/welcome" : "/login"} replace />}/>
 
 
