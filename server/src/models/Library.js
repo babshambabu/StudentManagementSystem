@@ -22,6 +22,9 @@ const LibrarySchema = new mongoose.Schema({
     enum: ['borrowed', 'returned'],
     default: 'borrowed'
   }
+}
+,{
+  timestamps: true
 });
 
 module.exports = mongoose.model('Library', LibrarySchema);
