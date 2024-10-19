@@ -6,6 +6,29 @@ const verifyToken = require('../middleware/verifyToken'); // Optional: Middlewar
 
 const router = express.Router();
 
+
+router.get('/', async (req, res) => {
+  const { role } = req.query; // Extract role from query parameter
+
+  try {
+    // Find users by role
+    const users = await User.find({ role });
+
+    // If no users found, return a 404
+    if (!users.length) {
+      return res.status(404).json({ message: 'No users found with the specified role' });
+    }
+
+    // Return the found users
+    res.json(users);
+  } catch (err) {
+    // Handle errors
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+
+
 // Register a new user
 router.post('/register', async (req, res) => {
   const { name, username, password, email, role } = req.body;

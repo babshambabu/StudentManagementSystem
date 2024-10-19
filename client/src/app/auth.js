@@ -1,9 +1,12 @@
 import axios from "axios"
+import { store } from '../store'; 
 
 const checkAuth = () => {
 /*  Getting token value stored in localstorage, if token is not present we will open login page 
     for all internal dashboard routes  */
-    const TOKEN = localStorage.getItem("token")
+   // const TOKEN = localStorage.getItem("token")
+    const { TOKEN } = store.getState().auth;
+    console.log("asd",TOKEN)
     const PUBLIC_ROUTES = ["login", "forgot-password", "register", "documentation"]
 
     const isPublicPage = PUBLIC_ROUTES.some( r => window.location.href.includes(r))
@@ -13,6 +16,7 @@ const checkAuth = () => {
         return;
     }else{
         axios.defaults.headers.common['Authorization'] = `Bearer ${TOKEN}`
+        axios.defaults.headers['auth-token'] = TOKEN;
 
         axios.interceptors.request.use(function (config) {
             // UPDATE: Add this code to show global loading indicator

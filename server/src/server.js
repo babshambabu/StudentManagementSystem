@@ -7,10 +7,7 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: 'http://localhost:3000', // Allow only your frontend's origin
-  credentials: true // Allow credentials (cookies, authorization headers, etc.)
-}));
+app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -20,10 +17,13 @@ const studentRoutes = require('./routes/student');
 const libraryRoutes = require('./routes/library');
 const feeRoutes = require('./routes/fees');
 const adminRoutes = require('./routes/admin');
-//console.log(process.env.MONGO_URI)
+console.log(process.env.MONGO_URI)
 // Use routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/library', libraryRoutes);
+app.use('/api/fees', feeRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/library', libraryRoutes);

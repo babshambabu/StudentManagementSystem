@@ -1,14 +1,33 @@
-import routes from '../routes/sidebar'
+import { adminroutes, librarianroutes, staffroutes} from '../routes/sidebar'
+
 import { NavLink,  Routes, Link , useLocation} from 'react-router-dom'
 import SidebarSubmenu from './SidebarSubmenu';
 import XMarkIcon  from '@heroicons/react/24/outline/XMarkIcon'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logout } from '../actions/authActions';
+
 
 function LeftSidebar(){
     const location = useLocation();
 
     const dispatch = useDispatch()
 
+    const { token, isAuthenticated, role, loading} = useSelector((state) => state.auth);
+    console.log( isAuthenticated, role)
+
+    var routes;
+    switch(role){
+        case "admin":
+         routes = adminroutes;
+         break;
+         case "librarian":
+          routes = librarianroutes;
+          break;
+          case "staff":
+           routes = staffroutes;
+           break;
+    }
 
     const close = (e) => {
         document.getElementById('left-sidebar-drawer').click()
@@ -24,7 +43,7 @@ function LeftSidebar(){
 
                 <li className="mb-2 font-semibold text-xl">
                     
-                    <Link to={'/app/welcome'}><img className="mask mask-squircle w-10" src="/logo192.png" alt="DashWind Logo"/>DashWind</Link> </li>
+                    <Link to={'/app/welcome'}><img className="mask mask-squircle w-10" src="/logo192.png" alt="DashWind Logo"/>SMSytem</Link> </li>
                 {
                     routes.map((route, k) => {
                         return(
@@ -48,7 +67,7 @@ function LeftSidebar(){
                         )
                     })
                 }
-
+<li><a onclick={logout}>Logout</a></li>
             </ul>
         </div>
     )

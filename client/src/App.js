@@ -34,7 +34,7 @@ initializeApp()
 const App = () => {
   const dispatch = useDispatch();
   const { token, isAuthenticated, role, loading } = useSelector((state) => state.auth);
-console.log(token, isAuthenticated, role, loading)
+//console.log(token, isAuthenticated, role, loading)
   useEffect(() => {
     if (token) {
       dispatch(getUserDetails(token));
@@ -64,7 +64,6 @@ console.log(token, isAuthenticated, role, loading)
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
-          
           <Route path="/documentation" element={<Documentation />} />
           
           {/* Place new routes over this */}
@@ -88,7 +87,7 @@ console.log(token, isAuthenticated, role, loading)
           <Route
             path="/"
             element={
-              !isAuthenticated ? <Navigate to="/login" /> : <Navigate to="/dashboard" />
+              !isAuthenticated ? <Navigate to="/login" /> : <Navigate to="/app/dashboard" />
             }
           />
           <Route path="*" element={<Navigate to="/" />} />

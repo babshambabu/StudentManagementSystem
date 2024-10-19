@@ -9,8 +9,8 @@ import 'react-notifications/lib/notifications.css';
 import ModalLayout from "./ModalLayout"
 
 function Layout(){
-  const dispatch = useDispatch()
-  const {newNotificationMessage, newNotificationStatus} = useSelector(state => state.header)
+ /* const dispatch = useDispatch()
+  const {newNotificationMessage, newNotificationStatus} = useSelector(state => state.header || {})
 
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function Layout(){
           dispatch(removeNotificationMessage())
       }
   }, [newNotificationMessage])
-
+*/
     return(
       <>
         { /* Left drawer - containing page content and side bar (always open) */ }
@@ -34,8 +34,8 @@ function Layout(){
         <RightSidebar />
 
 
-        {/** Notification layout container */}
-        <NotificationContainer />
+        {/** Notification layout container <NotificationContainer /> */}
+        
 
       {/* Modal layout container */}
         <ModalLayout />
@@ -43,5 +43,5 @@ function Layout(){
       </>
     )
 }
-
+ 
 export default Layout

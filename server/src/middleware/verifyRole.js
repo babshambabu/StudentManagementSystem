@@ -8,6 +8,7 @@ const verifyRole = (roles) => {
     try {
       const verified = jwt.verify(token, process.env.JWT_SECRET);
       req.user = verified;
+      console.log(req.user.role)
 
       if (!roles.includes(req.user.role)) {
         return res.status(403).send('Permission Denied');
