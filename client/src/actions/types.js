@@ -30,3 +30,10 @@ export const FETCH_UNPAID_FEES_FAILURE = 'FETCH_UNPAID_FEES_FAILURE';
 export const ADD_FEE_RECORD = 'ADD_FEE_RECORD';
 export const UPDATE_FEE_RECORD = 'UPDATE_FEE_RECORD';
 export const DELETE_FEE_RECORD = 'DELETE_FEE_RECORD';
+
+
+
+export const GET_FEES = 'GET_FEES';
+export const ADD_FEE = 'ADD_FEE';
+export const GET_STUDENTS = 'GET_STUDENTS';
+export const FEES_ERROR = 'FEES_ERROR';

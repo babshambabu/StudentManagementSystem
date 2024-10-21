@@ -15,7 +15,7 @@ export const fetchStudents = () => async (dispatch) => {
   dispatch({ type: FETCH_STUDENTS });
 
   try {
-    const res = await axiosInstance.get('/students');
+    const res = await axiosInstance.get('/students/students');
 
     dispatch({
       type: FETCH_STUDENTS_SUCCESS,
@@ -62,7 +62,7 @@ export const updateStudent = (id, studentData) => async (dispatch) => {
 // Delete a Student
 export const deleteStudent = (id) => async (dispatch) => {
   try {
-    await axiosInstance.delete(`/students/${id}`);
+    await axiosInstance.delete(`/students/delete/${id}`);
 
     dispatch({
       type: DELETE_STUDENT,
@@ -73,3 +73,4 @@ export const deleteStudent = (id) => async (dispatch) => {
     // Optionally, dispatch a failure action
   }
 };
+

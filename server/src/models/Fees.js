@@ -18,7 +18,17 @@ const FeesSchema = new mongoose.Schema({
     type: String,
     enum: ['unpaid', 'paid'],
     default: 'unpaid'
-  }
+  },  term: {
+    type: String,
+    enum: ['First Term', 'Second Term', 'Third term'],
+    required: true,
+    default: 'First Term',
+  },
+  remark: {
+  type: String, // New field for the remark
+  default: ''
+}
+  
 });
 
 module.exports = mongoose.model('Fees', FeesSchema);

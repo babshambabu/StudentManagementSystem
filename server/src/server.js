@@ -25,9 +25,7 @@ app.use('/api/students', studentRoutes);
 app.use('/api/library', libraryRoutes);
 app.use('/api/fees', feeRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/students', studentRoutes);
-app.use('/api/library', libraryRoutes);
-app.use('/api/fees', feeRoutes);
+
 
 
 // MongoDB Connection

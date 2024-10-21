@@ -1,4 +1,4 @@
-import TemplatePointers from "./components/TemplatePointers"
+import WelcomeMessage from "./components/WelcomeMessage"
 
 
 
@@ -13,7 +13,7 @@ function LandingIntro(){
 
               
               {/* Importing pointers component */}
-              <TemplatePointers />
+              <WelcomeMessage />
               
               </div>
 

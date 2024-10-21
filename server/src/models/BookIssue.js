@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 
 const bookIssueSchema = new mongoose.Schema({
   studentId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student',
     required: true,
   },
   bookId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book',
     required: true,
   },
   issueDate: {

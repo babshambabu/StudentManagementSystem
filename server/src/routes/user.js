@@ -3,9 +3,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Ensure you have the User model created in the models folder
 const verifyToken = require('../middleware/verifyToken'); // Optional: Middleware for protected routes
-
+const { addUser } = require('../controllers/userController');
 const router = express.Router();
-
+console.log("asd")
+console.log(addUser)
+//router.post('/addUser', addUser);
 
 router.get('/', async (req, res) => {
   const { role } = req.query; // Extract role from query parameter

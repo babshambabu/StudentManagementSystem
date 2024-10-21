@@ -1,70 +1,62 @@
-import axios from 'axios';
-import {
-  FETCH_UNPAID_FEES,
-  FETCH_UNPAID_FEES_SUCCESS,
-  FETCH_UNPAID_FEES_FAILURE,
-  ADD_FEE_RECORD,
-  UPDATE_FEE_RECORD,
-  DELETE_FEE_RECORD
-} from './types';
+import axiosInstance from '../utils/axiosInstance';
+import { GET_FEES, ADD_FEE, GET_STUDENTS, FEES_ERROR } from './types';
 
-// Fetch unpaid fees
-export const fetchUnpaidFees = () => async (dispatch) => {
-  dispatch({ type: FETCH_UNPAID_FEES });
-
+// Get Fees
+export const getFees = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/fees/unpaid');
-
+    const res = await axiosInstance.get('/fees');
     dispatch({
-      type: FETCH_UNPAID_FEES_SUCCESS,
-      payload: res.data // List of unpaid fees
+      type: GET_FEES,
+      payload: res.data
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
-      type: FETCH_UNPAID_FEES_FAILURE,
-      payload: err.response.data.message
+      type: FEES_ERROR,
+      payload: error.response.statusText
+    });
+  }
+};
+// Mark Fee as Paid
+export const updateFeeStatus = (feeId, remark) => async (dispatch) => {
+  try {
+    await axiosInstance.put(`/fees/${feeId}/mark-paid`, { remark });
+    dispatch(getFees()); // Fetch updated fee list after marking as paid
+  } catch (error) {
+    dispatch({
+      type: FEES_ERROR,
+      payload: error.response.statusText
     });
   }
 };
 
-// Add a new Fee Record
-export const addFeeRecord = (feeData) => async (dispatch) => {
+// Add Fee
+export const addFee = (feeData) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/fees', feeData);
-
+    const res = await axiosInstance.post('/fees', feeData);
     dispatch({
-      type: ADD_FEE_RECORD,
-      payload: res.data // Newly created fee record
+      type: ADD_FEE,
+      payload: res.data
     });
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    dispatch({
+      type: FEES_ERROR,
+      payload: error.response.statusText
+    });
   }
 };
 
-// Update an existing Fee Record
-export const updateFeeRecord = (id, feeData) => async (dispatch) => {
+// Get Students for Dropdown
+export const getStudents = () => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/fees/${id}`, feeData);
-
+    const res = await axiosInstance.get('/students/students');
     dispatch({
-      type: UPDATE_FEE_RECORD,
-      payload: res.data // Updated fee record
+      type: GET_STUDENTS,
+      payload: res.data
     });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-// Delete a Fee Record
-export const deleteFeeRecord = (id) => async (dispatch) => {
-  try {
-    await axios.delete(`/api/fees/${id}`);
-
+  } catch (error) {
     dispatch({
-      type: DELETE_FEE_RECORD,
-      payload: id // Return the id of the deleted fee record
+      type: FEES_ERROR,
+      payload: error.response.statusText
     });
-  } catch (err) {
-    console.error(err);
   }
 };

@@ -1,45 +1,57 @@
 const express = require('express');
-const Fees = require('../models/Fees');
-const verifyRole = require('../middleware/verifyRole');
-
 const router = express.Router();
+const Fees = require('../models/Fees');
+const Student = require('../models/Student');
 
 // Get all fees
-router.get('/', verifyRole(['Admin', 'Staff']), async (req, res) => {
-  const fees = await Fees.find();
-  res.json(fees);
+router.get('/', async (req, res) => {
+  try {
+    const fees = await Fees.find().populate('student', 'name'); // Populate student name
+    res.json(fees);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// Update fee status and add remark
+router.put('/:id/mark-paid', async (req, res) => {
+  const { remark } = req.body;
+
+  try {
+    const fee = await Fees.findById(req.params.id);
+    if (!fee) return res.status(404).json({ message: 'Fee not found' });
+
+    fee.status = 'paid';
+    fee.remark = remark || ''; // Save remark if provided
+    await fee.save();
+
+    res.json(fee);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// Create a new fee record
-router.post('/', verifyRole(['Admin', 'Staff']), async (req, res) => {
-  const newFee = new Fees(req.body);
-  await newFee.save();
-  res.status(201).json(newFee);
-});
-
-// Update fee record
-router.put('/:id', verifyRole(['Admin', 'Staff']), async (req, res) => {
-  const fee = await Fees.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(fee);
-});
-
-// Delete fee record
-router.delete('/:id', verifyRole(['Admin']), async (req, res) => {
-  await Fees.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Fee record deleted' });
-});
-
-
-// Get students with unpaid fees
-router.get('/unpaid', verifyRole(['Admin', 'Staff']), async (req, res) => {
-    try {
-      const unpaidFees = await Fees.find({ status: 'unpaid' })
-        .populate('student', 'name');
+// Add a new fee record
+router.post('/', async (req, res) => {
+  const { studentId, amountDue, dueDate, status, term } = req.body;
   
-      res.json(unpaidFees);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching unpaid fees' });
-    }
-  });
+  try {
+    const student = await Student.findById(studentId);
+    if (!student) return res.status(404).json({ message: 'Student not found' });
+
+    const newFee = new Fees({
+      student: studentId,
+      amountDue,
+      dueDate,
+      status,
+      term
+    });
+
+    const savedFee = await newFee.save();
+    res.status(201).json(savedFee);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// Mark Fee as Paid
 
 module.exports = router;

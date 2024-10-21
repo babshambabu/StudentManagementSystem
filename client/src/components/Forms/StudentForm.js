@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from "../../Instance/Axios";
+import axiosInstance from "../../utils/axiosInstance"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -99,10 +99,10 @@ const StudentForm = ({ studentId, onSave }) => {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label className="text-sm font-semibold mb-1">Student ID</label>
+                    <label className="text-sm font-semibold mb-1">Admission Number</label>
                     <input
                         name="studentId"
-                        placeholder="Student ID"
+                        placeholder="Admission Number"
                         value={formData.studentId}
                         onChange={handleChange}
                         required

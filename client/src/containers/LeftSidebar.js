@@ -67,7 +67,7 @@ function LeftSidebar(){
                         )
                     })
                 }
-<li><a onclick={logout}>Logout</a></li>
+<li><a onClick={logout}>Logout</a></li>
             </ul>
         </div>
     )

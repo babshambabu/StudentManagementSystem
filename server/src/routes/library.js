@@ -2,21 +2,18 @@
 const express = require('express');
 const Library = require('../models/Library');
 const verifyRole = require('../middleware/verifyRole');
-
 const router = express.Router();
 
-// Get all borrowings
-router.get('/', verifyRole(['Admin', 'Librarian']), async (req, res) => {
-  const borrowings = await Library.find();
-  res.json(borrowings);
-});
+const { getBooks } = require('../controllers/bookController');
+const { getBookIssues, addLibraryRecord, LibraryBooks } = require('../controllers/libraryController');
 
-// Create a new borrowing record
-router.post('/', verifyRole(['Librarian']), async (req, res) => {
-  const newBorrowing = new Library(req.body);
-  await newBorrowing.save();
-  res.status(201).json(newBorrowing);
-});
+router.get('/books', getBooks);
+router.get('/history', verifyRole(['admin', 'librarian']), getBookIssues);
+router.post('/addrecord', verifyRole(['admin', 'librarian']), addLibraryRecord);
+//router.get('/overduerecords', verifyRole(['Admin', 'Librarian']), overdueRecord);
+
+
+router.post('/libraryBooks', verifyRole(['admin', 'librarian']),LibraryBooks)
 
 // Update borrowing record
 router.put('/:id', verifyRole(['Librarian']), async (req, res) => {
@@ -36,7 +33,7 @@ router.get('/overdue', verifyRole(['Admin', 'Librarian']), async (req, res) => {
       const currentDate = new Date();
   
       // Fetch all books that are overdue
-      const overdueBooks = await Library.find({ returnDate: { $lt: currentDate }, status: 'borrowed' })
+      const overdueBooks = await BookIssue.find({ returnDate: { $lt: currentDate }, status: 'borrowed' })
         .populate('student', 'name')
         .populate('book', 'name');
   

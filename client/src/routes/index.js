@@ -1,90 +1,64 @@
-// All components mapping with path for internal routes
-
 import { lazy } from 'react'
-
 const Dashboard = lazy(() => import('../components/Dashboard'))
-const Dashboard2 = lazy(() => import('../pages/protected/Dashboard'))
 const Welcome = lazy(() => import('../pages/protected/Welcome'))
-const Page404 = lazy(() => import('../pages/protected/404'))
-const Blank = lazy(() => import('../pages/protected/Blank'))
-const Charts = lazy(() => import('../pages/protected/Charts'))
-
 const Students = lazy(() => import('../pages/protected/Students'))
-const Integration = lazy(() => import('../pages/protected/Integration'))
-const Calendar = lazy(() => import('../pages/protected/Calendar'))
-const Team = lazy(() => import('../pages/protected/Team'))
-const Transactions = lazy(() => import('../pages/protected/Transactions'))
-const Bills = lazy(() => import('../pages/protected/Bills'))
-const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
-const GettingStarted = lazy(() => import('../pages/GettingStarted'))
-const DocFeatures = lazy(() => import('../pages/DocFeatures'))
-const DocComponents = lazy(() => import('../pages/DocComponents'))
-
+const LibraryRecords = lazy(() => import('../pages/protected/LibraryRecords'))
+const FeeRecords = lazy(() => import('../pages/protected/FeeRecords.js'))
+const UnpaidFees = lazy(() => import('../pages/protected/UnpaidFees.js'))
+const AddFees = lazy(() => import('../pages/protected/AddFees.js'))
+const AddStudents = lazy(() => import('../pages/protected/AddStudents'))
+const EditStudents = lazy(() => import('../pages/protected/EditStudents'))
+const AddLibraryRecords = lazy(() => import('../pages/protected/AddLibraryRecords'))
+const OverdueRecords = lazy(() => import('../pages/protected/OverdueRecords.js'))
+const AddBook = lazy(() => import('../pages/protected/AddBook.js'))
 
 const routes = [
   {
-    path: '/dashboard2', // the url
-    component: Dashboard2, // view rendered
+    path: '/dashboard', 
+    component: Dashboard, 
   },
   {
-    path: '/dashboard', // the url
-    component: Dashboard, // view rendered
-  },
-  {
-    path: '/welcome', // the url
-    component: Welcome, // view rendered
+    path: '/welcome', 
+    component: Welcome, 
   },
   {
     path: '/students',
     component: Students,
   },
   {
-    path: '/settings-team',
-    component: Team,
+    path: '/addstudents',
+    component: AddStudents,
   },
   {
-    path: '/calendar',
-    component: Calendar,
+    path: '/editstudents/*',
+    component: EditStudents,
   },
   {
-    path: '/transactions',
-    component: Transactions,
+    path: '/libraryrecords',
+    component: LibraryRecords,
   },
   {
-    path: '/settings-profile',
-    component: ProfileSettings,
+    path: '/borrowbooks',
+    component: AddLibraryRecords,
   },
   {
-    path: '/settings-billing',
-    component: Bills,
+    path: '/overdue',
+    component: OverdueRecords,
   },
   {
-    path: '/getting-started',
-    component: GettingStarted,
+    path: '/feehistory',
+    component: FeeRecords,
   },
   {
-    path: '/features',
-    component: DocFeatures,
+    path: '/addFees',
+    component: AddFees,
   },
   {
-    path: '/components',
-    component: DocComponents,
-  },
-  {
-    path: '/integration',
-    component: Integration,
-  },
-  {
-    path: '/charts',
-    component: Charts,
-  },
-  {
-    path: '/404',
-    component: Page404,
-  },
-  {
-    path: '/blank',
-    component: Blank,
+    path: '/addBook',
+    component: AddBook,
+  },  {
+    path: '/unpaidFees',
+    component: UnpaidFees,
   },
 ]
 

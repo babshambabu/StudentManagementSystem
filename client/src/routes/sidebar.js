@@ -1,23 +1,15 @@
 /** Icons are imported separatly to reduce build time */
-import BellIcon from '@heroicons/react/24/outline/BellIcon'
-import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon'
 import Squares2X2Icon from '@heroicons/react/24/outline/Squares2X2Icon'
 import TableCellsIcon from '@heroicons/react/24/outline/TableCellsIcon'
 import WalletIcon from '@heroicons/react/24/outline/WalletIcon'
 import CodeBracketSquareIcon from '@heroicons/react/24/outline/CodeBracketSquareIcon'
 import DocumentIcon from '@heroicons/react/24/outline/DocumentIcon'
 import ExclamationTriangleIcon from '@heroicons/react/24/outline/ExclamationTriangleIcon'
-import CalendarDaysIcon from '@heroicons/react/24/outline/CalendarDaysIcon'
-import ArrowRightOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightOnRectangleIcon'
 import UserIcon from '@heroicons/react/24/outline/UserIcon'
-import Cog6ToothIcon from '@heroicons/react/24/outline/Cog6ToothIcon'
-import BoltIcon from '@heroicons/react/24/outline/BoltIcon'
-import ChartBarIcon from '@heroicons/react/24/outline/ChartBarIcon'
 import CurrencyDollarIcon from '@heroicons/react/24/outline/CurrencyDollarIcon'
-import InboxArrowDownIcon from '@heroicons/react/24/outline/InboxArrowDownIcon'
 import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
 import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
-import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon'
+
 
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
@@ -30,32 +22,39 @@ const studentroutes = {
   name: 'Student', // name that appear in Sidebar
   submenu : [
     {
-      path: '/students',
+      path: '/app/students',
       icon: <DocumentIcon className={submenuIconClasses}/>,
       name: 'Student Listing',
     },
     {
-      path: '/register', //url
-      icon: <ArrowRightOnRectangleIcon className={submenuIconClasses}/>, // icon component
-      name: 'Add Student', // name that appear in Sidebar
-    },
-    {
-      path: '/forgot-password',
-      icon: <KeyIcon className={submenuIconClasses}/>,
-      name: 'Forgot Password',
-    },
-    {
-      path: '/app/blank',
+      path: '/app/addstudents',
       icon: <DocumentIcon className={submenuIconClasses}/>,
-      name: 'Blank Page',
+      name: 'Add Students',
     },
-    {
-      path: '/app/404',
-      icon: <ExclamationTriangleIcon className={submenuIconClasses}/>,
-      name: '404',
-    },
+
   ]
 }
+
+
+const userroutes = {
+  path: '', //no url needed as this has submenu
+  icon: <UserIcon className={`${iconClasses} inline` }/> , // icon component
+  name: 'Users', // name that appear in Sidebar
+  submenu : [
+    {
+      path: '/app/users',
+      icon: <DocumentIcon className={submenuIconClasses}/>,
+      name: 'User Listing',
+    },
+    {
+      path: '/app/adduser',
+      icon: <DocumentIcon className={submenuIconClasses}/>,
+      name: 'Add Users',
+    },
+
+  ]
+}
+
 
 const feeroutes = {
   path: '', //no url needed as this has submenu
@@ -63,19 +62,19 @@ const feeroutes = {
   name: 'Fee Management', // name that appear in Sidebar
   submenu : [
     {
-      path: '/app/getting-started', // url
+      path: '/app/feehistory', // url
       icon: <ExclamationTriangleIcon className={submenuIconClasses}/>,
-      name: 'Unpaid Fees', // name that appear in Sidebar
+      name: 'Fee History', // name that appear in Sidebar
     },
     {
-      path: '/app/features',
+      path: '/app/unpaidfees',
       icon: <TableCellsIcon className={submenuIconClasses}/>, 
-      name: 'Student Fee Manager',
+      name: 'Unpaid Fees',
     },
     {
-      path: '/app/components',
+      path: '/app/addfees',
       icon: <CodeBracketSquareIcon className={submenuIconClasses}/>, 
-      name: 'Fee History',
+      name: 'Add Fees',
     }
   ]
 }
@@ -86,19 +85,24 @@ const libraryroutes = {
   name: 'Library', // name that appear in Sidebar
   submenu : [
     {
-      path: '/app/settings-profile', //url
+      path: '/app/libraryrecords', //url
       icon: <UserIcon className={submenuIconClasses}/>, // icon component
-      name: 'Borrowings', // name that appear in Sidebar
+      name: 'Library History', // name that appear in Sidebar
     },
     {
-      path: '/app/settings-billing',
+      path: '/app/borrowbooks',
+      icon: <WalletIcon className={submenuIconClasses}/>,
+      name: 'Borrow books',
+    },
+    {
+      path: '/app/overdue',
       icon: <WalletIcon className={submenuIconClasses}/>,
       name: 'Late returns',
     },
     {
-      path: '/app/settings-team', // url
+      path: '/app/addbook', // url
       icon: <UsersIcon className={submenuIconClasses}/>, // icon component
-      name: 'History', // name that appear in Sidebar
+      name: 'AddBook', // name that appear in Sidebar
     },
   ]
 }
@@ -110,6 +114,7 @@ const adminroutes = [
     icon: <Squares2X2Icon className={iconClasses}/>, 
     name: 'Dashboard',
   },
+  userroutes,
   studentroutes,
   libraryroutes,
   feeroutes,
@@ -130,6 +135,7 @@ const staffroutes = [
     icon: <Squares2X2Icon className={iconClasses}/>, 
     name: 'Dashboard',
   },
+  studentroutes,
   feeroutes,
   {
     path: '/forgot-password',

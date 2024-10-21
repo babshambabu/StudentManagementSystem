@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
 const LibrarianDashboard = () => {
   const [overdueBooks, setOverdueBooks] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/library?overdue=true').then((res) => {
+    axiosInstance.get('/library/overdue?overdue=true').then((res) => {
       setOverdueBooks(res.data);
     }).catch((err) => {
       console.error(err);

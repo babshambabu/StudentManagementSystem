@@ -2,7 +2,7 @@ import Header from "./Header"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import routes from '../routes'
 import { Suspense, lazy } from 'react'
-import SuspenseContent from "./SuspenseContent"
+
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
 
@@ -26,7 +26,7 @@ function PageContent(){
         <div className="drawer-content flex flex-col ">
             <Header/>
             <main className="flex-1 overflow-y-auto md:pt-4 pt-4 px-6  bg-base-200" ref={mainContentRef}>
-                <Suspense fallback={<SuspenseContent />}>
+                <Suspense fallback="loading..">
                         <Routes>
                             {
                                 routes.map((route, key) => {

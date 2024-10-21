@@ -2,11 +2,10 @@ import React, { lazy, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { themeChange } from 'theme-change'
 import checkAuth from './app/auth';
-import initializeApp from './app/init';
+
 import './App.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-//import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import { getUserDetails } from './actions/authActions';
 import PrivateRoute from './components/PrivateRoute';
@@ -22,10 +21,9 @@ const Layout = lazy(() => import('./containers/Layout'))
 const Login = lazy(() => import('./pages/Login'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
 const Register = lazy(() => import('./pages/Register'))
-const Documentation = lazy(() => import('./pages/Documentation'))
 
-// Initializing different libraries
-initializeApp()
+
+
 
 
 
@@ -64,17 +62,11 @@ const App = () => {
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/documentation" element={<Documentation />} />
           
           {/* Place new routes over this */}
           <Route path="/app/*" element={<Layout />} />
           <Route path="/addStudent" element={<StudentsPage />} />
           <Route path="/students" element={<StudentList />} />
-          <Route path="*" element={<Navigate to={token ? "/app/welcome" : "/login"} replace />}/>
-
-
-
-          
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
