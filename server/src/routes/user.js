@@ -1,13 +1,16 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Ensure you have the User model created in the models folder
-const verifyToken = require('../middleware/verifyToken'); // Optional: Middleware for protected routes
-const { addUser } = require('../controllers/userController');
+const User = require('../models/User'); //
+const verifyToken = require('../middleware/verifyToken'); 
+const { addUser, getUsers } = require('../controllers/userController');
 const router = express.Router();
-console.log("asd")
-console.log(addUser)
-//router.post('/addUser', addUser);
+
+
+router.post('/addUser', addUser);
+
+ router.get('/', getUsers);   // Route to get all users
+router.get('/users', getUsers);   // Route to get all users
 
 router.get('/', async (req, res) => {
   const { role } = req.query; // Extract role from query parameter
@@ -29,28 +32,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
-
-// Register a new user
-router.post('/register', async (req, res) => {
-  const { name, username, password, email, role } = req.body;
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
-      name,
-      username,
-      password: hashedPassword,
-      email,
-      role
-    });
-
-    await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (err) {
-    res.status(500).json({ error: 'Error registering user' });
-  }
-});
 
 // Login a user
 router.post('/login', async (req, res) => {
@@ -81,5 +62,44 @@ router.get('/me', verifyToken, async (req, res) => {
     res.status(500).json({ error: 'Error fetching user data' });
   }
 });
+
+
+// // Add user
+// router.post('/users', async (req, res) => {
+//   try {
+//     const { name, username, password, email, role } = req.body;
+//     const newUser = new User({ name, username, password, email, role });
+//     await newUser.save();
+//     res.status(201).json(newUser);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Error creating user' });
+//   }
+// });
+
+// Update password
+router.put('/users/:id/password', async (req, res) => {
+  try {
+    const { password } = req.body;
+    const user = await User.findById(req.params.id);
+    user.password = password;
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating password' });
+  }
+});
+
+// Delete user
+router.delete('/users/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting user' });
+  }
+});
+
+
+
 
 module.exports = router;

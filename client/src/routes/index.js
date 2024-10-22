@@ -11,15 +11,13 @@ const EditStudents = lazy(() => import('../pages/protected/EditStudents'))
 const AddLibraryRecords = lazy(() => import('../pages/protected/AddLibraryRecords'))
 const OverdueRecords = lazy(() => import('../pages/protected/OverdueRecords.js'))
 const AddBook = lazy(() => import('../pages/protected/AddBook.js'))
+const ListUser = lazy(() => import('../pages/protected/ListUser.js'))
+const AddUser = lazy(() => import('../pages/protected/AddUser.js'))
 
 const routes = [
   {
     path: '/dashboard', 
     component: Dashboard, 
-  },
-  {
-    path: '/welcome', 
-    component: Welcome, 
   },
   {
     path: '/students',
@@ -56,9 +54,18 @@ const routes = [
   {
     path: '/addBook',
     component: AddBook,
-  },  {
+  },   
+  {
     path: '/unpaidFees',
     component: UnpaidFees,
+  },   
+  {
+    path: '/users',
+    component: ListUser,
+  },  
+  {
+    path: '/adduser',
+    component: AddUser,
   },
 ]
 

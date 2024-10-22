@@ -14,7 +14,7 @@ function LeftSidebar(){
     const dispatch = useDispatch()
 
     const { token, isAuthenticated, role, loading} = useSelector((state) => state.auth);
-    console.log( isAuthenticated, role)
+
 
     var routes;
     switch(role){

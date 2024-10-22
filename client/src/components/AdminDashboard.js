@@ -23,7 +23,7 @@ const AdminDashboard = () => {
     });
 
     // Fetch total librarians
-    axiosInstance.get('/users?role=ibrarian').then((res) => {
+    axiosInstance.get('/users?role=librarian').then((res) => {
       setLibrarianCount(res.data.length);
     }).catch((err) => {
       console.error(err);

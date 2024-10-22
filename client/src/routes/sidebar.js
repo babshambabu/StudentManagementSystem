@@ -16,7 +16,7 @@ const submenuIconClasses = `h-5 w-5`
 
 
 
-const studentroutes = {
+const studentmenuroutes = {
   path: '', //no url needed as this has submenu
   icon: <UserIcon className={`${iconClasses} inline` }/> , // icon component
   name: 'Student', // name that appear in Sidebar
@@ -36,7 +36,7 @@ const studentroutes = {
 }
 
 
-const userroutes = {
+const usermenuroutes = {
   path: '', //no url needed as this has submenu
   icon: <UserIcon className={`${iconClasses} inline` }/> , // icon component
   name: 'Users', // name that appear in Sidebar
@@ -56,7 +56,7 @@ const userroutes = {
 }
 
 
-const feeroutes = {
+const feemenuroutes = {
   path: '', //no url needed as this has submenu
   icon: <CurrencyDollarIcon className={`${iconClasses} inline` }/>, // icon component
   name: 'Fee Management', // name that appear in Sidebar
@@ -79,7 +79,7 @@ const feeroutes = {
   ]
 }
 
-const libraryroutes = {
+const librarymenuroutes = {
   path: '', //no url needed as this has submenu
   icon: <TableCellsIcon className={`${iconClasses} inline` }/>, 
   name: 'Library', // name that appear in Sidebar
@@ -114,10 +114,10 @@ const adminroutes = [
     icon: <Squares2X2Icon className={iconClasses}/>, 
     name: 'Dashboard',
   },
-  userroutes,
-  studentroutes,
-  libraryroutes,
-  feeroutes,
+  usermenuroutes,
+  studentmenuroutes,
+  librarymenuroutes,
+  feemenuroutes,
   {
     path: '/forgot-password',
     icon: <KeyIcon className={submenuIconClasses}/>,
@@ -135,8 +135,8 @@ const staffroutes = [
     icon: <Squares2X2Icon className={iconClasses}/>, 
     name: 'Dashboard',
   },
-  studentroutes,
-  feeroutes,
+  studentmenuroutes,
+  feemenuroutes,
   {
     path: '/forgot-password',
     icon: <KeyIcon className={submenuIconClasses}/>,
@@ -154,7 +154,7 @@ const librarianroutes = [
     icon: <Squares2X2Icon className={iconClasses}/>, 
     name: 'Dashboard',
   },
-  libraryroutes,
+  librarymenuroutes,
   {
     path: '/forgot-password',
     icon: <KeyIcon className={submenuIconClasses}/>,
