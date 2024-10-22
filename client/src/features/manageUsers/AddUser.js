@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../actions/userActions';
 import axiosInstance from '../../utils/axiosInstance';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
 
 const AddUser = () => {
   const dispatch = useDispatch();
@@ -19,18 +21,26 @@ const AddUser = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleAddUser =async (e) => {
+  const handleAddUser = async (e) => {
     e.preventDefault();
-    const response = await axiosInstance.post("/users/addUser", formData);    
-     dispatch(addUser(formData));
-    setFormData({ name: '', username: '', email: '', password: '', role: 'Staff' });
+    try {
+      const response = await axiosInstance.post("/users/addUser", formData);
+      dispatch(addUser(formData));
+
+      toast.success('User added successfully!');
+
+        setFormData({ name: '', username: '', email: '', password: '', role: 'Staff' });
+    } catch (error) {
+     
+      toast.error('Failed to add user. Please try again.');
+    }
   };
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Add User</h1>
-      <form onSubmit={handleAddUser}>
-        <div className="flex space-x-4">
+      <form onSubmit={handleAddUser} className="w-1/2 mx-auto">
+        <div className="flex flex-col space-y-4"> {/* Changed to flex-col and space-y for vertical stacking */}
           <input
             type="text"
             name="name"
@@ -76,6 +86,7 @@ const AddUser = () => {
         </div>
         <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add User</button>
       </form>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
   );
 };

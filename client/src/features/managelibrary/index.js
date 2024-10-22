@@ -63,9 +63,9 @@ function LibraryHistory() {
                     ) : error ? (
                         <p>{error}</p>
                     ) : (
-                        <table className="table w-full ">
+                        <table className="table w-full  border-none">
                             <thead>
-                                <tr>
+                                <tr className="text-black-500">
                                     <th>Student Name</th>
                                     <th>Book Name</th>
                                     <th>Issue Date</th>
@@ -81,7 +81,7 @@ function LibraryHistory() {
                                         <td className="border px-4 py-2">
                 <button
                   onClick={() => handleStudentClick(record.studentId._id)}
-                  className="text-blue-500 underline"
+                  className="text-blue-500 border-none "
                 >{record.studentId.name} </button>
                                         </td>
                                         <td>{record.bookId.title}</td>

@@ -118,11 +118,7 @@ const adminroutes = [
   studentmenuroutes,
   librarymenuroutes,
   feemenuroutes,
-  {
-    path: '/forgot-password',
-    icon: <KeyIcon className={submenuIconClasses}/>,
-    name: 'Change Password',
-  },
+  
   
 ]
 
@@ -137,11 +133,7 @@ const staffroutes = [
   },
   studentmenuroutes,
   feemenuroutes,
-  {
-    path: '/forgot-password',
-    icon: <KeyIcon className={submenuIconClasses}/>,
-    name: 'Change Password',
-  },
+  
   
 ]
 
@@ -155,12 +147,7 @@ const librarianroutes = [
     name: 'Dashboard',
   },
   librarymenuroutes,
-  {
-    path: '/forgot-password',
-    icon: <KeyIcon className={submenuIconClasses}/>,
-    name: 'Change Password',
-  },
-  
+ 
 ]
 
 

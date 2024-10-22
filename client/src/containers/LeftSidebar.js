@@ -27,6 +27,8 @@ function LeftSidebar(){
           case "staff":
            routes = staffroutes;
            break;
+          default :
+          break;
     }
 
     const close = (e) => {

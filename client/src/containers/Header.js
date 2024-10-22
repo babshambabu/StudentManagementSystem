@@ -6,13 +6,13 @@ import Bars3Icon  from '@heroicons/react/24/outline/Bars3Icon'
 import MoonIcon from '@heroicons/react/24/outline/MoonIcon'
 import SunIcon from '@heroicons/react/24/outline/SunIcon'
 
-import { NavLink,  Routes, Link , useLocation} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 function Header(){
 
     const dispatch = useDispatch()
-    const {noOfNotifications, pageTitle} = useSelector(state => state.header)
+    const { pageTitle} = useSelector(state => state.header)
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
 
     useEffect(() => {
@@ -70,30 +70,11 @@ function Header(){
                 <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "dark" ? "swap-on" : "swap-off")}/>
                 <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "light" ? "swap-on" : "swap-off")} />
             </label>
-
-
-    
-
-
-                {/* Profile icon, opening menu on click */}
-                <div className="dropdown dropdown-end ml-4">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                        U
+                       <div className = "pl-10 pr-5 font-bold" >
+                        <button onClick={logoutUser}>Logout</button>
                         </div>
-                    </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li className="justify-between">
-                        <Link to={'/app/settings-profile'}>
-                            Profile Settings
-                            <span className="badge">New</span>
-                            </Link>
-                        </li>
-                        <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li>
-                        <div className="divider mt-0 mb-0"></div>
-                        <li><a onClick={logoutUser}>Logout</a></li>
-                    </ul>
-                </div>
+                    
+                      
             </div>
             </div>
 
