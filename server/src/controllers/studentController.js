@@ -10,6 +10,19 @@ exports.getStudents = async (req, res) => {
 };
 
 
+exports.Students = async (req, res) => {
+ 
+  try {
+
+      const students = await Student.find();
+            res.status(200).json(students);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error fetching students' });
+  }
+}
+
+
 exports.AddStudentDetails = async (req, res) => {
   try {
     const student =  new Student(req.body);

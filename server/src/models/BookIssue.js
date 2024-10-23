@@ -25,6 +25,10 @@ const bookIssueSchema = new mongoose.Schema({
     required: true,
     default: 'borrowed',
   },
+  review: {
+    type: String,
+    
+  },
 });
 
 module.exports = mongoose.model('BookIssue', bookIssueSchema);

@@ -1,57 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Fees = require('../models/Fees');
-const Student = require('../models/Student');
+const verifyRole = require('../middleware/verifyRole');
 
-// Get all fees
-router.get('/', async (req, res) => {
-  try {
-    const fees = await Fees.find().populate('student', 'name'); // Populate student name
-    res.json(fees);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+const { getStudentsFeeList , addFeeRecord, updateFeeStatus} = require('../controllers/staffController');
+
+router.get('/', getStudentsFeeList);
+router.post('/', addFeeRecord);
+
 // Update fee status and add remark
-router.put('/:id/mark-paid', async (req, res) => {
-  const { remark } = req.body;
-
-  try {
-    const fee = await Fees.findById(req.params.id);
-    if (!fee) return res.status(404).json({ message: 'Fee not found' });
-
-    fee.status = 'paid';
-    fee.remark = remark || ''; // Save remark if provided
-    await fee.save();
-
-    res.json(fee);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Add a new fee record
-router.post('/', async (req, res) => {
-  const { studentId, amountDue, dueDate, status, term } = req.body;
-  
-  try {
-    const student = await Student.findById(studentId);
-    if (!student) return res.status(404).json({ message: 'Student not found' });
-
-    const newFee = new Fees({
-      student: studentId,
-      amountDue,
-      dueDate,
-      status,
-      term
-    });
-
-    const savedFee = await newFee.save();
-    res.status(201).json(savedFee);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-// Mark Fee as Paid
+router.put('/:id/mark-paid',updateFeeStatus);
 
 module.exports = router;
