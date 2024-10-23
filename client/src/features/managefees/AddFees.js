@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStudents, addFee } from '../../actions/feesActions';
-
+import { useNavigate } from 'react-router-dom';
 const AddFeeForm = () => {
   const [studentId, setStudentId] = useState('');
   const [amountDue, setAmountDue] = useState('');
@@ -11,6 +11,7 @@ const AddFeeForm = () => {
 
   const dispatch = useDispatch();
   const students = useSelector(state => state.fees.students);
+const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getStudents());
@@ -20,12 +21,13 @@ const AddFeeForm = () => {
     e.preventDefault();
     const feeData = { studentId, amountDue, dueDate, status, term };
     dispatch(addFee(feeData));
+    window.location.href = "/app/feehistory"
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Add New Fee</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='text-left '>
         <label className="block mb-2">Student Name</label>
         <select
           className="w-full mb-4 p-2 border border-gray-300 rounded"

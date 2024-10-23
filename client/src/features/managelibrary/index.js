@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TitleCard from "../../components/Cards/TitleCard";
 import { useNavigate } from "react-router-dom";
 import moment from "moment/moment";
-import { getLibraryRecords } from '../../actions/libraryActions.js';
+import { getLibraryRecords ,updateBorrowStatus} from '../../actions/libraryActions.js';
 import Modal from 'react-modal'; 
 import axiosInstance from "../../utils/axiosInstance.js";
 
@@ -15,6 +15,20 @@ function LibraryHistory() {
 
     const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [review, setreview] = useState('');
+
+  const ToggleStatus = (record) => {
+    setSelectedRecord(record);
+    setIsModalOpen(true); // Open modal to add review
+  };
+
+  const handleSubmitreview = () => {
+    dispatch(updateBorrowStatus(selectedRecord._id, review));
+    setIsModalOpen(false);
+    setreview(''); // Clear review after submission
+  };
 
     const libraryRecordList = useSelector((state) => state.libraryRecordList);
     const { loading, error, libraryRecords } = libraryRecordList;
@@ -23,9 +37,7 @@ function LibraryHistory() {
         dispatch(getLibraryRecords());
     }, [dispatch]);
 
-    const goUpdate = (record) => {
-        navigate("/updateLibrary/" + record._id);
-    };
+    
 
     const navigateToAddRecord = () => {
         navigate('/app/borrowbooks');
@@ -63,15 +75,16 @@ function LibraryHistory() {
                     ) : error ? (
                         <p>{error}</p>
                     ) : (
-                        <table className="table w-full  border-none">
+                        <table className="table w-full ">
                             <thead>
-                                <tr className="text-black-500">
+                                <tr>
                                     <th>Student Name</th>
                                     <th>Book Name</th>
                                     <th>Issue Date</th>
                                     <th>Return Date</th>
                                     <th>Status</th>
                                     <th>Actions</th>
+                                    <th>Review</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,21 +94,25 @@ function LibraryHistory() {
                                         <td className="border px-4 py-2">
                 <button
                   onClick={() => handleStudentClick(record.studentId._id)}
-                  className="text-blue-500 border-none "
+                  className="text-blue-500 underline"
                 >{record.studentId.name} </button>
                                         </td>
                                         <td>{record.bookId.title}</td>
                                         <td>{moment(record.issueDate).format("DD MMM YYYY")}</td>
                                         <td>{moment(record.returnDate).format("DD MMM YYYY")} </td>                                             
                                         <td>{record.status}</td>
-                                        <td>
+                                        <td>{record.status === 'borrowed' && (
                                             <button
-                                                onClick={() => goUpdate(record)}
+                                                onClick={() =>ToggleStatus(record)}
                                                 className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
                                             >
-                                                Update
+                                                Update Status
                                             </button>
+                                            )}
                                         </td>
+                                        <td>{record.review}</td>
+                                        
+             
                                     </tr>
                                 ))}
                             </tbody>
@@ -128,6 +145,34 @@ function LibraryHistory() {
           </div>
         )}
       </Modal>
+      <Modal
+  isOpen={isModalOpen}
+  onRequestClose={() => setIsModalOpen(false)}
+  overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+  className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+>
+  <h2 className="text-2xl mb-4">Confirm Return and Add Review</h2>
+  <p>Are you sure you want to mark this as Returned?</p>
+  <label className="block mb-2">write the Review</label>
+  <textarea
+    className="w-full p-2 border border-gray-300 rounded"
+    value={review}
+    onChange={(e) => setreview(e.target.value)}
+    placeholder="Enter any reviews (optional)"
+  />
+  <div className="flex justify-end mt-4">
+    <button
+      className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+      onClick={() => setIsModalOpen(false)}>
+      Cancel
+    </button>
+    <button
+      className="bg-blue-500 text-white px-4 py-2 rounded"
+      onClick={handleSubmitreview}>
+      Mark as Returned
+    </button>
+  </div>
+</Modal>
                 </div>
             </TitleCard>
         </>

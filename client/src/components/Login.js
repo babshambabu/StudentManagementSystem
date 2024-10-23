@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,8 +18,9 @@ const Login = () => {
       await dispatch(login({ username, password }));
       navigate('/dashboard');
     } catch (err) {
-      console.error('Login failed');
-      // Optionally, handle login failure
+      console.error('Login failed', err);
+      setErrorMessage('Invalid credentials. Please try again.');
+      
     }
   };
 
@@ -26,6 +28,12 @@ const Login = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-80">
         <h2 className="text-2xl mb-4 text-center">Login</h2>
+         
+        {errorMessage && (
+          <div className="text-red-500 mb-4 text-center">
+            {errorMessage}
+          </div>
+        )}
         <input
           type="text"
           value={username}

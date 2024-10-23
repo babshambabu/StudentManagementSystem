@@ -1,19 +1,15 @@
 import { adminroutes, librarianroutes, staffroutes} from '../routes/sidebar'
 
-import { NavLink,  Routes, Link , useLocation} from 'react-router-dom'
+import { NavLink,Link , useLocation} from 'react-router-dom'
 import SidebarSubmenu from './SidebarSubmenu';
 import XMarkIcon  from '@heroicons/react/24/outline/XMarkIcon'
-import { useDispatch, useSelector } from 'react-redux';
-
-import { logout } from '../actions/authActions';
-
+import { useSelector } from 'react-redux';
 
 function LeftSidebar(){
     const location = useLocation();
 
-    const dispatch = useDispatch()
 
-    const { token, isAuthenticated, role, loading} = useSelector((state) => state.auth);
+    const { role} = useSelector((state) => state.auth);
 
 
     var routes;
@@ -69,7 +65,6 @@ function LeftSidebar(){
                         )
                     })
                 }
-<li><a onClick={logout}>Logout</a></li>
             </ul>
         </div>
     )

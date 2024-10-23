@@ -1,3 +1,4 @@
+import { LIBRARY_STATUS_ERROR } from "../actions/types";
 
   export const libraryRecordListReducer = (state = { libraryRecords: [] }, action) => {
     switch (action.type) {
@@ -7,6 +8,8 @@
         return { loading: false, libraryRecords: action.payload };
       case 'LIBRARY_RECORD_LIST_FAIL':
         return { loading: false, error: action.payload };
+        case 'LIBRARY_STATUS_ERROR':
+      return {  ...state, error: action.payload, loading: false };
       default:
         return state;
     }

@@ -4,8 +4,8 @@ import {
   FETCH_OVERDUE_BOOKS_SUCCESS,
   FETCH_OVERDUE_BOOKS_FAILURE,
   ADD_BORROW_RECORD,
-  UPDATE_BORROW_RECORD,
-  DELETE_BORROW_RECORD
+  LIBRARY_STATUS_ERROR
+
 } from './types';
 
 export const getLibraryRecords = () => async (dispatch) => {
@@ -76,33 +76,18 @@ export const addBorrowRecord = (recordData) => async (dispatch) => {
 };
 
 // Update an existing Borrow Record
-export const updateBorrowRecord = (id, recordData) => async (dispatch) => {
-  try {
-    const res = await axiosInstance.put(`/library/addrecord/${id}`, recordData);
 
+export const updateBorrowStatus = (recordId, review) => async (dispatch) => {
+  try {
+    await axiosInstance.put(`/library/${recordId}/update`, { review });
+    dispatch(getLibraryRecords()); // Fetch updated Library Students list after marking status
+  } catch (error) {
     dispatch({
-      type: UPDATE_BORROW_RECORD,
-      payload: res.data // Updated borrow record
+      type: LIBRARY_STATUS_ERROR,
+      payload: error.response.statusText
     });
-  } catch (err) {
-    console.error(err);
   }
 };
-
-// Delete a Borrow Record
-export const deleteBorrowRecord = (id) => async (dispatch) => {
-  try {
-    await axiosInstance.delete(`/library/${id}`);
-
-    dispatch({
-      type: DELETE_BORROW_RECORD,
-      payload: id // Return the id of the deleted borrow record
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 
 
 export const getStudents = () => async (dispatch) => {

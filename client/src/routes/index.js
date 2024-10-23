@@ -1,6 +1,5 @@
 import { lazy } from 'react'
 const Dashboard = lazy(() => import('../components/Dashboard'))
-const Welcome = lazy(() => import('../pages/protected/Welcome'))
 const Students = lazy(() => import('../pages/protected/Students'))
 const LibraryRecords = lazy(() => import('../pages/protected/LibraryRecords'))
 const FeeRecords = lazy(() => import('../pages/protected/FeeRecords.js'))

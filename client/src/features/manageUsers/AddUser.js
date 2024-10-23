@@ -1,4 +1,3 @@
-// components/AddUser.js
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../actions/userActions';
@@ -21,17 +20,46 @@ const AddUser = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const { name, username, email, password } = formData;
+
+    // Check for empty fields
+    if (!name || !username || !email || !password) {
+      toast.error('All fields are required!');
+      return false;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Invalid email format!');
+      return false;
+    }
+
+    // Validate password strength (minimum 6 characters)
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long!');
+      return false;
+    }
+
+    // All validations passed
+    return true;
+  };
+
   const handleAddUser = async (e) => {
     e.preventDefault();
+
+    // Validate form before submission
+    if (!validateForm()) {
+      return; // Stop the submission if validation fails
+    }
+
     try {
       const response = await axiosInstance.post("/users/addUser", formData);
       dispatch(addUser(formData));
-
       toast.success('User added successfully!');
-
-        setFormData({ name: '', username: '', email: '', password: '', role: 'Staff' });
+      setFormData({ name: '', username: '', email: '', password: '', role: 'Staff' });
     } catch (error) {
-     
       toast.error('Failed to add user. Please try again.');
     }
   };
@@ -40,7 +68,7 @@ const AddUser = () => {
     <div>
       <h1 className="text-2xl font-bold mb-4">Add User</h1>
       <form onSubmit={handleAddUser} className="w-1/2 mx-auto">
-        <div className="flex flex-col space-y-4"> {/* Changed to flex-col and space-y for vertical stacking */}
+        <div className="flex flex-col space-y-4">
           <input
             type="text"
             name="name"
@@ -79,9 +107,9 @@ const AddUser = () => {
             onChange={handleInputChange}
             className="border p-2 rounded"
           >
-            <option value="Admin">Admin</option>
-            <option value="Staff">Staff</option>
-            <option value="Librarian">Librarian</option>
+            <option value="admin">Admin</option>
+            <option value="staff">Staff</option>
+            <option value="librarian">Librarian</option>
           </select>
         </div>
         <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add User</button>

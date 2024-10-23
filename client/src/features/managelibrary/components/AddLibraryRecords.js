@@ -26,7 +26,7 @@ const AddLibraryRecord = () => {
     e.preventDefault();
     dispatch(addLibraryRecord({ studentId, bookId, issueDate, returnDate, status }));
     
-   navigate("/library")
+   window.location.href="/app/libraryrecords"
   };
 
   return (

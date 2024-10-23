@@ -36,7 +36,7 @@ function Login(){
                 setLoading(false)
               } catch (err) {
                 console.error('Login failed');
-                // Optionally, handle login failure
+                navigate("/login");
                 setLoading(false)
               }
         }
@@ -63,14 +63,14 @@ function Login(){
                         <div className="mb-4">
 
                             <InputText
-                            defaultValue={loginObj.username} 
+                            defaultValue="" 
                             updateType="username" 
                             containerStyle="mt-4" 
                             labelTitle="Username" 
                             updateFormValue={updateFormValue}/>
 
                             <InputText 
-                            defaultValue={loginObj.password} 
+                            defaultValue=""
                             type="password" 
                             updateType="password" 
                             containerStyle="mt-4" 

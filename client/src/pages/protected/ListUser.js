@@ -7,7 +7,7 @@ function InternalPage(){
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setPageTitle({ title : "Library History"}))
+        dispatch(setPageTitle({ title : "Manage Users"}))
       }, [])
 
 

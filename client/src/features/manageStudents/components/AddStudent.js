@@ -46,9 +46,9 @@ const navigate= useNavigate();
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="">
+      <form onSubmit={handleSubmit} className="text-left w-1/2 mx-auto">
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Name</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Name</label>
           <input
             name="name"
             placeholder="Name"
@@ -59,7 +59,7 @@ const navigate= useNavigate();
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Class</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Class</label>
           <input
             name="class"
             placeholder="Class"
@@ -70,7 +70,7 @@ const navigate= useNavigate();
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Division</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Division</label>
           <input
             name="division"
             placeholder="Division"
@@ -81,7 +81,7 @@ const navigate= useNavigate();
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Email</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Email</label>
           <input
             name="email"
             type="email"
@@ -93,7 +93,7 @@ const navigate= useNavigate();
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Student ID</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Student ID</label>
           <input
             name="studentId"
             placeholder="Student ID"
@@ -104,7 +104,7 @@ const navigate= useNavigate();
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Age</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Age</label>
           <input
             name="age"
             type="number"
@@ -115,7 +115,7 @@ const navigate= useNavigate();
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Address</label>
+          <label className="text-sm font-semibold mb-1 mt-3">Address</label>
           <input
             name="address"
             placeholder="Address"
@@ -126,7 +126,7 @@ const navigate= useNavigate();
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300"
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300 mt-5"
         >
            Add Student
         </button>

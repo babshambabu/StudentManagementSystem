@@ -17,6 +17,7 @@ export const getUserDetails = (token) => async (dispatch) => {
       type: USER_LOADED,
       payload: res.data // Contains user info including role
     });
+    
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
@@ -45,7 +46,7 @@ export const login = (formData) => async (dispatch) => {
 
 // Logout User
 export const logout = () => (dispatch) => {
-  // Remove token from localStorage
+  
   localStorage.removeItem('token');
 
   dispatch({ type: LOGOUT });

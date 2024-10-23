@@ -44,7 +44,8 @@ import {
           isAuthenticated: false,
           loading: false,
           user: null,
-          role: null
+          role: null,
+          error: action.payload ? action.payload.error : 'Login failed'
         };
       default:
         return state;
